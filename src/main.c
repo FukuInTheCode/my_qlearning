@@ -75,22 +75,24 @@ int main(int argc, char* argv[])
     my_g.grid_cols = 10;
     my_g.grid_rows = 10;
 
-    my_g.starting_state = 2;
+    my_g.starting_state = 16;
 
 
     AGENT_DECLA(gilbert);
 
     my_ql_t ql = {
         .episodes_n = 10*1000,
-        .max_episode_steps = 1000,
+        .max_episode_steps = 300,
         .alpha = 1e-1,
-        .decay_rate = 1e-5,
+        .decay_rate = 1e-3,
         .gamma = 1e-2 * 99,
         .start_explo_proba = 1.,
         .min_explo_proba = 1e-1
     };
 
     my_ql_create(&ql, &my_g, &gilbert);
+
+    printf("%u\n", my_g.states_n);
 
     // set the char repr for the states
 
@@ -194,10 +196,6 @@ int main(int argc, char* argv[])
     my_env_print_id(&my_g);
 
     my_agent_get_path(&gilbert, &my_g, ql.max_episode_steps);
-
-    MAT_FREE(ql.agent->q_table);
-    MAT_FREE(ql.env->infos_table);
-    MAT_FREE(ql.env->action_table);
 
     return 0;
 }
