@@ -45,5 +45,7 @@ void my_ql_create(my_ql_t *ql, my_env_t *env, my_agent_t *agent);
 void my_ql_train(my_ql_t *ql);
 uint32_t my_agent_get_action(my_agent_t *agent, uint32_t current_state,\
                                                     double explo_proba);
+void my_agent_set_new_qv(my_agent_t *agent, uint32_t current_state,\
+                                            uint32_t action, double new_qv);
 
 #endif
