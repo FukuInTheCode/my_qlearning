@@ -51,6 +51,9 @@ int main(int argc, char* argv[]) {
     uint32_t states_n = 9;
     uint32_t actions_n = 4;
 
+    uint32_t episodes_n = 1000;
+    uint32_t max_episode_steps = 10;
+
     MAT_DECLA(q_table);
 
     my_matrix_create(states_n, actions_n, 1, &q_table);
