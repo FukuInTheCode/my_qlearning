@@ -83,26 +83,25 @@ int main(int argc, char* argv[])
 
     // q learning vars
 
-    uint32_t episodes_n = 10000;
-    uint32_t max_episode_steps = 11;
-
-    double alpha = 1e-1;
-
-    double gamma = 0.99;
-
-    double decay_rate = 0.001;
-
-    double start_exploit_proba = 1.;
-
-    double min_proba_exploit = 1e-1;
+    my_ql_t ql = {
+        .env = &my_g,
+        .agent = &gilbert,
+        .episodes_n = 10*1000,
+        .max_episode_steps = 11,
+        .alpha = 1e-1,
+        .decay_rate = 1e-3,
+        .gamma = 1e-2 * 99,
+        .start_explo_proba = 1.,
+        .min_explo_proba = 1e-1
+    };
 
     // q learning algo
     uint32_t current_state = my_g.starting_state;
-    double exploit_proba = start_exploit_proba;
-    for (uint32_t i = 0; i < episodes_n; ++i) {
+    double exploit_proba = ql.start_explo_proba;
+    for (uint32_t i = 0; i < ql.episodes_n; ++i) {
         // reset
         // one episode
-        for (uint32_t j = 0; j < max_episode_steps; ++j) {
+        for (uint32_t j = 0; j < ql.max_episode_steps; ++j) {
             // choice the action
             double old_qv;
             uint32_t action;
@@ -119,14 +118,14 @@ int main(int argc, char* argv[])
             // change the gilbert.q_table based on the reward
             double reward = my_g.reward_table.arr[next_state][0];
             double max_next_qv = my_matrix_maxrow(&gilbert.q_table, next_state);
-            double new_qv = (1 - alpha) * old_qv + alpha *(reward + gamma * max_next_qv);
+            double new_qv = (1 - ql.alpha) * old_qv + ql.alpha *(reward + ql.gamma * max_next_qv);
             gilbert.q_table.arr[current_state][action] = new_qv;
             // set the agent
             if (reward != 0 && reward != 1)
                 break;
             current_state = next_state;
         }
-        exploit_proba = my_max_between(start_exploit_proba * exp(-1 * decay_rate * i), min_proba_exploit);
+        exploit_proba = my_max_between(ql.start_explo_proba * exp(-1 * ql.decay_rate * i), ql.min_explo_proba);
         current_state = my_g.starting_state;
     }
 
