@@ -3,7 +3,12 @@
 
 #include "my_matrix.h"
 
-#define AGENT_DECLA(nvar) my_agent_t nvar = {.q_table = {.m = 0, .n = 0}, .name = #nvar}
+#define AGENT_DECLA(nvar) my_agent_t nvar = \
+            {.q_table = {.m = 0, .n = 0}, .name = #nvar}
+
+#define ENV_DECLA(nvar) my_env_t nvar = \
+    {.states_n = 0, .actions_n = 0, .reward_table = {.m = 0, .n = 0},\
+                         .action_table = {.m = 0, .n = 0}, .name = #nvar}
 
 typedef struct {
     char *name;
@@ -11,6 +16,7 @@ typedef struct {
 } my_agent_t;
 
 typedef struct {
+    char *name
     uint32_t states_n;
     uint32_t actions_n;
     my_matrix_t reward_table;
