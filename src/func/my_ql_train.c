@@ -1,6 +1,6 @@
 #include "../../includes/my.h"
 
-static void do_episode(my_ql_t *ql)
+static void do_episode(my_ql_t *ql, double explo_proba, uint32_t current_state)
 {
     for (uint32_t j = 0; j < ql->max_episode_steps; ++j) {
         uint32_t action = my_agent_get_action(ql->agent,\
@@ -25,7 +25,7 @@ void my_ql_train(my_ql_t *ql)
     uint32_t current_state = ql->env->starting_state;
     double explo_proba = ql->start_explo_proba;
     for (uint32_t i = 0; i < ql->episodes_n; ++i) {
-        do_episode(ql);
+        do_episode(ql, explo_proba, current_state);
         explo_proba = my_max_between(ql->start_explo_proba *\
                     exp(-1 * ql->decay_rate * i), ql->min_explo_proba);
         current_state = ql->env->starting_state;
