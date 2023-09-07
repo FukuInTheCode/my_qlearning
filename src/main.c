@@ -54,6 +54,10 @@ int main(int argc, char* argv[]) {
     uint32_t episodes_n = 1000;
     uint32_t max_episode_steps = 10;
 
+    uint32_t current_state = 0;
+
+    double alpha = 0.1;
+
     MAT_DECLA(q_table);
 
     my_matrix_create(states_n, actions_n, 1, &q_table);
@@ -77,7 +81,9 @@ int main(int argc, char* argv[]) {
 
     for (uint32_t i = 0; i < episodes_n; ++i) {
         for (uint32_t j = 0; j < max_episode_steps; ++j) {
-            
+            uint32_t max_qv = my_matrix_maxrow(q_table, current_state);
+            uint32_t max_index = my_matrix_find_col_index(q_table, current_state, max_qv);
+
         }
     }
 
