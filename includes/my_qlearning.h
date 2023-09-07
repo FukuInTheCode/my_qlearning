@@ -23,6 +23,8 @@ typedef struct {
     my_matrix_t reward_table;
     my_matrix_t action_table;
     uint32_t starting_state;
+    uint32_t grid_cols;
+    uint32_t grid_rows;
 } my_env_t;
 
 typedef struct {
