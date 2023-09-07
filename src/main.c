@@ -60,6 +60,11 @@ int main(int argc, char* argv[]) {
     MAT_DECLA(reward_table);
 
     my_matrix_create(states_n, 1, 1, &reward_table);
+
+    my_matrix_set(&reward_table, 1, 0, -1);
+    my_matrix_set(&reward_table, 7, 0, -1);
+    my_matrix_set(&reward_table, 8, 0, 1);
+
     MAT_PRINT(reward_table);
     MAT_DECLA(action_table);
 
