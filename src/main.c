@@ -52,11 +52,19 @@ int main(int argc, char* argv[])
     // env
     ENV_DECLA(my_g);
 
-    my_g.actions_n = 4;
-    my_g.grid_cols = 4;
-    my_g.grid_rows = 4;
+    // set the informations about the env
 
-    my_g.starting_state = 0;
+    // my_g.actions_n = 4;
+    // my_g.grid_cols = 4;
+    // my_g.grid_rows = 4;
+
+    // my_g.starting_state = 0;
+
+    my_g.actions_n = 4;
+    my_g.grid_cols = 6;
+    my_g.grid_rows = 6;
+
+    my_g.starting_state = 10;
 
     AGENT_DECLA(gilbert);
 
@@ -72,21 +80,42 @@ int main(int argc, char* argv[])
 
     my_ql_create(&ql, &my_g, &gilbert);
 
+    // set the char repr for the states
+
     my_matrix_setcol(&(my_g.infos_table), 2, 111);
 
-    my_matrix_set(&my_g.infos_table, 11, 0, 10);
-    my_matrix_set(&my_g.infos_table, 6, 0, -1);
-    my_matrix_set(&my_g.infos_table, 7, 0, -1);
-    my_matrix_set(&my_g.infos_table, 4, 0, 10);
+    // set the reward for a states
+
+    // my_matrix_set(&my_g.infos_table, 11, 0, 10);
+    // my_matrix_set(&my_g.infos_table, 6, 0, -1);
+    // my_matrix_set(&my_g.infos_table, 7, 0, -1);
+    // my_matrix_set(&my_g.infos_table, 4, 0, 10);
+    // my_matrix_set(&my_g.infos_table, 12, 0, -10);
+    // my_matrix_set(&my_g.infos_table, 10, 0, -1);
+    // my_matrix_set(&my_g.infos_table, 8, 0, 1);
+
+    my_matrix_set(&my_g.infos_table, 1, 0, -5);
+    my_matrix_set(&my_g.infos_table, 3, 0, 2);
+    my_matrix_set(&my_g.infos_table, 7, 0, 8);
+    my_matrix_set(&my_g.infos_table, 9, 0, 5);
+    my_matrix_set(&my_g.infos_table, 11, 0, 1);
     my_matrix_set(&my_g.infos_table, 12, 0, -10);
-    my_matrix_set(&my_g.infos_table, 10, 0, -1);
-    my_matrix_set(&my_g.infos_table, 8, 0, 1);
+    my_matrix_set(&my_g.infos_table, 16, 0, 3);
+    my_matrix_set(&my_g.infos_table, 19, 0, -2);
+    my_matrix_set(&my_g.infos_table, 23, 0, 6);
+    my_matrix_set(&my_g.infos_table, 24, 0, -4);
+    my_matrix_set(&my_g.infos_table, 29, 0, 7);
+    my_matrix_set(&my_g.infos_table, 31, 0, -6);
+    my_matrix_set(&my_g.infos_table, 34, 0, 4);
+    my_matrix_set(&my_g.infos_table, 35, 0, -3);
+    my_matrix_set(&my_g.infos_table, 40, 0, 9);
+    my_matrix_set(&my_g.infos_table, 41, 0, -7);
+
     fillMatrix(&my_g.action_table, my_g.states_n, my_g.actions_n);
     MAT_PRINT(my_g.infos_table);
     MAT_PRINT(my_g.action_table);
 
-    // q learning algo
-    my_ql_train(&ql);
+    // my_ql_train(&ql);
 
     MAT_PRINT(ql.agent->q_table);
     my_env_print_reward(&my_g);
