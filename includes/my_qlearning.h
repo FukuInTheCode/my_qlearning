@@ -47,6 +47,6 @@ uint32_t my_agent_get_action(my_agent_t *agent, uint32_t current_state,\
                                                     double explo_proba);
 void my_agent_set_new_qv(my_agent_t *agent, uint32_t current_state,\
                                             uint32_t action, double new_qv);
-void my_env_print(my_env_t *env);
+void my_env_print_reward(my_env_t *env);
 
 #endif
