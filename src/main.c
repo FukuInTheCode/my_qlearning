@@ -1,10 +1,10 @@
 #include "../includes/my.h"
 
-static void fillMatrix(my_matrix_t *action_table, uint32_t states_n, uint32_t actions_n) {
+static void fillMatrix(my_matrix_t *my_g.action_table, uint32_t my_g.states_n, uint32_t my_g.actions_n) {
     int grid_columns = 4;
     int grid_rows = 4;
-    for (uint32_t state = 0; state < states_n; state++) {
-        for (uint32_t action = 0; action < actions_n; action++) {
+    for (uint32_t state = 0; state < my_g.states_n; state++) {
+        for (uint32_t action = 0; action < my_g.actions_n; action++) {
             int resulting_state;
 
             // Calculate the resulting state based on the action and current state
@@ -38,7 +38,7 @@ static void fillMatrix(my_matrix_t *action_table, uint32_t states_n, uint32_t ac
             }
 
             // Assign the resulting state to the matrix
-            action_table->arr[state][action] = resulting_state;
+            my_g.action_table->arr[state][action] = resulting_state;
         }
     }
 }
@@ -48,34 +48,29 @@ static void fillMatrix(my_matrix_t *action_table, uint32_t states_n, uint32_t ac
 int main(int argc, char* argv[]) {
     srand(69);
 
-    AGENT_DECLA(gilbert);
-
-    MAT_PRINT(gilbert.q_table);
-
     // env
 
-    uint32_t states_n = 16;
-    uint32_t actions_n = 4;
+    ENV_DECLA(my_g);
 
-    uint32_t starting_state = 0;
+    my_g.states_n = 16;
+    my_g.actions_n = 4;
 
-    MAT_DECLA(reward_table);
+    my_g.starting_state = 0;
 
-    my_matrix_create(states_n, 1, 1, &reward_table);
+    my_matrix_create(my_g.states_n, 1, 1, &my_g.reward_table);
 
-    my_matrix_set(&reward_table, 6, 0, -1);
-    my_matrix_set(&reward_table, 7, 0, -1);
-    my_matrix_set(&reward_table, 4, 0, -10);
-    my_matrix_set(&reward_table, 12, 0, -10);
-    my_matrix_set(&reward_table, 10, 0, -1);
-    my_matrix_set(&reward_table, 8, 0, 1);
-    my_matrix_set(&reward_table, 11, 0, 10);
-    MAT_DECLA(action_table);
+    my_matrix_set(&my_g.reward_table, 6, 0, -1);
+    my_matrix_set(&my_g.reward_table, 7, 0, -1);
+    my_matrix_set(&my_g.reward_table, 4, 0, -10);
+    my_matrix_set(&my_g.reward_table, 12, 0, -10);
+    my_matrix_set(&my_g.reward_table, 10, 0, -1);
+    my_matrix_set(&my_g.reward_table, 8, 0, 1);
+    my_matrix_set(&my_g.reward_table, 11, 0, 10);
 
-    my_matrix_create(states_n, actions_n, 1, &action_table);
-    fillMatrix(&action_table, states_n, actions_n);
-    MAT_PRINT(reward_table);
-    MAT_PRINT(action_table);
+    my_matrix_create(my_g.states_n, my_g.actions_n, 1, &my_g.action_table);
+    fillMatrix(&my_g.action_table, my_g.states_n, my_g.actions_n);
+    MAT_PRINT(my_g.reward_table);
+    MAT_PRINT(my_g.action_table);
 
     // q learning vars
 
@@ -96,11 +91,11 @@ int main(int argc, char* argv[]) {
 
     MAT_DECLA(q_table);
 
-    my_matrix_create(states_n, actions_n, 1, &q_table);
+    my_matrix_create(my_g.states_n, my_g.actions_n, 1, &q_table);
 
     MAT_PRINT(q_table);
 
-    uint32_t current_state = starting_state;
+    uint32_t current_state = my_g.starting_state;
 
     // q learning algo
     double exploit_proba = start_exploit_proba;
@@ -118,11 +113,11 @@ int main(int argc, char* argv[]) {
                 old_qv = my_matrix_maxrow(&q_table, current_state);
                 action = my_matrix_find_col_index(&q_table, current_state, old_qv);
             }
-            int next_state = action_table.arr[current_state][action];
+            int next_state = my_g.action_table.arr[current_state][action];
             if (next_state == -1)
                 continue;
             // change the q_table based on the reward
-            double reward = reward_table.arr[next_state][0];
+            double reward = my_g.reward_table.arr[next_state][0];
             double max_next_qv = my_matrix_maxrow(&q_table, next_state);
             double new_qv = (1 - alpha) * old_qv + alpha *(reward + gamma * max_next_qv);
             q_table.arr[current_state][action] = new_qv;
@@ -132,14 +127,14 @@ int main(int argc, char* argv[]) {
             current_state = next_state;
         }
         exploit_proba = my_max_between(start_exploit_proba * exp(-1 * decay_rate * i), min_proba_exploit);
-        current_state = starting_state;
+        current_state = my_g.starting_state;
     }
 
     MAT_PRINT(q_table);
 
     MAT_FREE(q_table);
-    MAT_FREE(reward_table);
-    MAT_FREE(action_table);
+    MAT_FREE(my_g.reward_table);
+    MAT_FREE(my_g.action_table);
 
     return 0;
 }
