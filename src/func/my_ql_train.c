@@ -23,7 +23,7 @@ void my_ql_train(my_ql_t *ql)
                 break;
             current_state = next_state;
         }
-        exploit_proba = my_max_between(ql->start_explo_proba * exp(-1 * ql->decay_rate * i), ql->min_explo_proba);
+        explo_proba = my_max_between(ql->start_explo_proba * exp(-1 * ql->decay_rate * i), ql->min_explo_proba);
         current_state = ql->env->starting_state;
     }
 }
