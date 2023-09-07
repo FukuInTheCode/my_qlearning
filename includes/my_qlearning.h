@@ -4,11 +4,12 @@
 #include "my_matrix.h"
 
 #define AGENT_DECLA(nvar) my_agent_t nvar = \
-            {.q_table = {.m = 0, .n = 0}, .name = #nvar}
+            {.q_table = {.m = 0, .n = 0, .name = "q_table"}, .name = #nvar}
 
 #define ENV_DECLA(nvar) my_env_t nvar = \
-    {.states_n = 0, .actions_n = 0, .reward_table = {.m = 0, .n = 0},\
-                         .action_table = {.m = 0, .n = 0}, .name = #nvar}
+    {.states_n = 0, .actions_n = 0, .reward_table =\
+                {.m = 0, .n = 0, .name = "reward_table"}, .action_table =\
+                    {.m = 0, .n = 0, .name = "action_table"}, .name = #nvar}
 
 typedef struct {
     char *name;
