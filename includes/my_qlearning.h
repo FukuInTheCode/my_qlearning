@@ -50,7 +50,6 @@ void my_agent_set_new_qv(my_agent_t *agent, uint32_t current_state,\
 void my_env_print_reward(my_env_t *env);
 void my_env_print_char(my_env_t *env);
 void my_env_print_id(my_env_t *env);
-void my_agent_get_path(my_agent_t *agent, uint32_t steps,\
-                            uint32_t start, my_matrix_t *actions);
+void my_agent_get_path(my_agent_t *agent, my_env_t *env, uint32_t steps);
 
 #endif
