@@ -51,5 +51,6 @@ void my_env_print_reward(my_env_t *env);
 void my_env_print_char(my_env_t *env);
 void my_env_print_id(my_env_t *env);
 void my_agent_get_path(my_agent_t *agent, my_env_t *env, uint32_t steps);
+void my_ql_free(my_ql_t *ql);
 
 #endif
