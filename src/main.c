@@ -13,7 +13,13 @@ int main(int argc, char* argv[]) {
 
     MAT_PRINT(q_table);
 
+    MAT_DECLA(reward_table);
+
+    my_matrix_create(states_n, 1, 1, &reward_table);
+    MAT_PRINT(reward_table);
+
     MAT_FREE(q_table);
+    MAT_FREE(reward_table);
 
     return 0;
 }
