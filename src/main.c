@@ -51,8 +51,8 @@ int main(int argc, char* argv[]) {
     uint32_t states_n = 16;
     uint32_t actions_n = 4;
 
-    uint32_t episodes_n = 1000;
-    uint32_t max_episode_steps = 10;
+    uint32_t episodes_n = 10000;
+    uint32_t max_episode_steps = 11;
 
     uint32_t starting_state = 0;
 
@@ -107,7 +107,6 @@ int main(int argc, char* argv[]) {
             if (next_state == -1)
                 continue;
             double reward = reward_table.arr[next_state][0];
-            // printf("%d, %d, %d, %lf\n", current_state, action, next_state, reward);
             double max_next_qv = my_matrix_maxrow(&q_table, next_state);
             double new_qv = (1 - alpha) * old_qv + alpha *(reward + gamma * max_next_qv);
             q_table.arr[current_state][action] = new_qv;
