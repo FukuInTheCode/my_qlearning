@@ -1,10 +1,10 @@
 #include "../includes/my.h"
 
-static void fillMatrix(my_matrix_t *my_g.action_table, uint32_t my_g.states_n, uint32_t my_g.actions_n) {
+static void fillMatrix(my_matrix_t *action_table, uint32_t states_n, uint32_t actions_n) {
     int grid_columns = 4;
     int grid_rows = 4;
-    for (uint32_t state = 0; state < my_g.states_n; state++) {
-        for (uint32_t action = 0; action < my_g.actions_n; action++) {
+    for (uint32_t state = 0; state < states_n; state++) {
+        for (uint32_t action = 0; action < actions_n; action++) {
             int resulting_state;
 
             // Calculate the resulting state based on the action and current state
@@ -38,7 +38,7 @@ static void fillMatrix(my_matrix_t *my_g.action_table, uint32_t my_g.states_n, u
             }
 
             // Assign the resulting state to the matrix
-            my_g.action_table->arr[state][action] = resulting_state;
+            action_table->arr[state][action] = resulting_state;
         }
     }
 }

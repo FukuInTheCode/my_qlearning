@@ -16,7 +16,7 @@ typedef struct {
 } my_agent_t;
 
 typedef struct {
-    char *name
+    char *name;
     uint32_t states_n;
     uint32_t actions_n;
     my_matrix_t reward_table;
