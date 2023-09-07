@@ -43,5 +43,7 @@ void my_env_create(my_env_t *env);
 void my_agent_create(my_agent_t *agent, uint32_t states_n, uint32_t actions_n);
 void my_ql_create(my_ql_t *ql, my_env_t *env, my_agent_t *agent);
 void my_ql_train(my_ql_t *ql);
+uint32_t my_agent_get_action(my_agent_t *agent, uint32_t current_state,\
+                                                    double explo_proba);
 
 #endif
