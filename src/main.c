@@ -1,8 +1,8 @@
 #include "../includes/my.h"
 
 static void fillMatrix(my_matrix_t *action_table, uint32_t states_n, uint32_t actions_n) {
-    int grid_columns = 3;
-    int grid_rows = 3;
+    int grid_columns = 4;
+    int grid_rows = 4;
     for (uint32_t state = 0; state < states_n; state++) {
         for (uint32_t action = 0; action < actions_n; action++) {
             int resulting_state;
@@ -48,10 +48,10 @@ static void fillMatrix(my_matrix_t *action_table, uint32_t states_n, uint32_t ac
 int main(int argc, char* argv[]) {
     srand(69);
 
-    uint32_t states_n = 9;
+    uint32_t states_n = 16;
     uint32_t actions_n = 4;
 
-    uint32_t episodes_n = 5;
+    uint32_t episodes_n = 1000;
     uint32_t max_episode_steps = 10;
 
     uint32_t starting_state = 0;
@@ -64,6 +64,8 @@ int main(int argc, char* argv[]) {
 
     double start_exploit_proba = 1.;
 
+    double min_proba_exploit = 1e-1;
+
     MAT_DECLA(q_table);
 
     my_matrix_create(states_n, actions_n, 1, &q_table);
@@ -74,9 +76,13 @@ int main(int argc, char* argv[]) {
 
     my_matrix_create(states_n, 1, 1, &reward_table);
 
-    my_matrix_set(&reward_table, 1, 0, -1);
+    my_matrix_set(&reward_table, 6, 0, -1);
     my_matrix_set(&reward_table, 7, 0, -1);
+    my_matrix_set(&reward_table, 4, 0, -10);
+    my_matrix_set(&reward_table, 12, 0, -10);
+    my_matrix_set(&reward_table, 10, 0, -1);
     my_matrix_set(&reward_table, 8, 0, 1);
+    my_matrix_set(&reward_table, 11, 0, 10);
 
     MAT_PRINT(reward_table);
     MAT_DECLA(action_table);
@@ -101,15 +107,15 @@ int main(int argc, char* argv[]) {
             if (next_state == -1)
                 continue;
             double reward = reward_table.arr[next_state][0];
-            printf("%d, %d, %d, %lf\n", current_state, action, next_state, reward);
+            // printf("%d, %d, %d, %lf\n", current_state, action, next_state, reward);
             double max_next_qv = my_matrix_maxrow(&q_table, next_state);
             double new_qv = (1 - alpha) * old_qv + alpha *(reward + gamma * max_next_qv);
             q_table.arr[current_state][action] = new_qv;
-            if (reward == -1)
+            if (reward != 0 && reward != 1)
                 break;
             current_state = next_state;
         }
-        exploit_proba = start_exploit_proba * exp(-1 * decay_rate * i);
+        exploit_proba = my_max_between(start_exploit_proba * exp(-1 * decay_rate * i), min_proba_exploit);
     }
 
     MAT_PRINT(q_table);
