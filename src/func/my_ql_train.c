@@ -14,7 +14,7 @@ static void do_episode(my_ql_t *ql, double explo_proba, uint32_t current_state)
         double new_qv = (1 - ql->alpha) * old_qv + ql->alpha *(reward +\
                                                     ql->gamma * max_next_qv);
         my_agent_set_new_qv(ql->agent, current_state, action, new_qv);
-        if (ql->env->infos_table[next_state][1] != 0)
+        if (ql->env->infos_table.arr[next_state][1] != 0)
             break;
         current_state = next_state;
     }

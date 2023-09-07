@@ -66,6 +66,12 @@ int main(int argc, char* argv[])
 
     my_g.starting_state = 10;
 
+    // my_g.actions_n = 8;
+    // my_g.grid_cols = 10;
+    // my_g.grid_rows = 10;
+
+    // my_g.starting_state = 45;
+
     AGENT_DECLA(gilbert);
 
     my_ql_t ql = {
@@ -110,6 +116,39 @@ int main(int argc, char* argv[])
     my_matrix_set(&my_g.infos_table, 35, 0, -3);
     my_matrix_set(&my_g.infos_table, 40, 0, 9);
     my_matrix_set(&my_g.infos_table, 41, 0, -7);
+
+    // my_matrix_set(&my_g.infos_table, 1, 0, -5);
+    // my_matrix_set(&my_g.infos_table, 4, 0, 2);
+    // my_matrix_set(&my_g.infos_table, 7, 0, 8);
+    // my_matrix_set(&my_g.infos_table, 10, 0, 5);
+    // my_matrix_set(&my_g.infos_table, 14, 0, 1);
+    // my_matrix_set(&my_g.infos_table, 15, 0, -10);
+    // my_matrix_set(&my_g.infos_table, 18, 0, 3);
+    // my_matrix_set(&my_g.infos_table, 20, 0, -2);
+    // my_matrix_set(&my_g.infos_table, 22, 0, 6);
+    // my_matrix_set(&my_g.infos_table, 26, 0, -4);
+    // my_matrix_set(&my_g.infos_table, 28, 0, 7);
+    // my_matrix_set(&my_g.infos_table, 33, 0, -6);
+    // my_matrix_set(&my_g.infos_table, 36, 0, 4);
+    // my_matrix_set(&my_g.infos_table, 38, 0, -3);
+    // my_matrix_set(&my_g.infos_table, 41, 0, 9);
+    // my_matrix_set(&my_g.infos_table, 44, 0, -7);
+    // my_matrix_set(&my_g.infos_table, 46, 0, -8);
+    // my_matrix_set(&my_g.infos_table, 50, 0, -1);
+    // my_matrix_set(&my_g.infos_table, 53, 0, 10);
+    // my_matrix_set(&my_g.infos_table, 55, 0, -9);
+    // my_matrix_set(&my_g.infos_table, 58, 0, 7);
+    // my_matrix_set(&my_g.infos_table, 62, 0, -6);
+    // my_matrix_set(&my_g.infos_table, 65, 0, 5);
+    // my_matrix_set(&my_g.infos_table, 69, 0, -4);
+    // my_matrix_set(&my_g.infos_table, 73, 0, 3);
+    // my_matrix_set(&my_g.infos_table, 75, 0, -2);
+    // my_matrix_set(&my_g.infos_table, 78, 0, 1);
+    // my_matrix_set(&my_g.infos_table, 81, 0, -10);
+    // my_matrix_set(&my_g.infos_table, 85, 0, 9);
+    // my_matrix_set(&my_g.infos_table, 88, 0, -8);
+    // my_matrix_set(&my_g.infos_table, 91, 0, -7);
+    // my_matrix_set(&my_g.infos_table, 94, 0, 6);
 
     fillMatrix(&my_g.action_table, my_g.states_n, my_g.actions_n);
     MAT_PRINT(my_g.infos_table);
