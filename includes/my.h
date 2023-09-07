@@ -1,4 +1,4 @@
-#pragma once
+#ifndef MYH
 #define MYH
 
 #include <stdio.h>
@@ -8,3 +8,5 @@
 #include <stdint.h>
 #include <string.h>
 #include <stdbool.h>
+
+#endif
