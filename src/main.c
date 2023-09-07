@@ -84,6 +84,7 @@ int main(int argc, char* argv[])
     MAT_PRINT(my_g.action_table);
 
     // q learning algo
+    my_ql_train(&ql);
 
     MAT_PRINT(ql.agent->q_table);
 
