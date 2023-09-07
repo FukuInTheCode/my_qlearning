@@ -37,4 +37,6 @@ typedef struct {
     double min_explo_proba;
 } my_ql_t;
 
+void my_env_create(my_env_t *env);
+
 #endif

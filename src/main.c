@@ -57,8 +57,6 @@ int main(int argc, char* argv[])
 
     my_g.starting_state = 0;
 
-    my_matrix_create(my_g.states_n, 1, 1, &my_g.reward_table);
-
     my_matrix_set(&my_g.reward_table, 6, 0, -1);
     my_matrix_set(&my_g.reward_table, 7, 0, -1);
     my_matrix_set(&my_g.reward_table, 4, 0, -10);
@@ -67,7 +65,6 @@ int main(int argc, char* argv[])
     my_matrix_set(&my_g.reward_table, 8, 0, 1);
     my_matrix_set(&my_g.reward_table, 11, 0, 10);
 
-    my_matrix_create(my_g.states_n, my_g.actions_n, 1, &my_g.action_table);
     fillMatrix(&my_g.action_table, my_g.states_n, my_g.actions_n);
     MAT_PRINT(my_g.reward_table);
     MAT_PRINT(my_g.action_table);
