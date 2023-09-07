@@ -38,5 +38,6 @@ typedef struct {
 } my_ql_t;
 
 void my_env_create(my_env_t *env);
+void my_agent_create(my_agent_t *agent, uint32_t states_n, uint32_t actions_n);
 
 #endif
