@@ -6,7 +6,8 @@
         "test.h": "c",
         "adojet.h": "c",
         "cmath": "c",
-        "my_qlearning.h": "c"
+        "my_qlearning.h": "c",
+        "my_agent_get_action.C": "cpp"
     },
     "epilinter.tokenizer_address": "ws://54.36.183.139:8081"
 }
