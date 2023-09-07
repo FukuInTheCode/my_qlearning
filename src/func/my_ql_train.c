@@ -3,15 +3,13 @@
 void my_ql_train(my_ql_t *ql)
 {
     uint32_t current_state = ql->env->starting_state;
-    double exploit_proba = ql->start_explo_proba;
+    double explo_proba = ql->start_explo_proba;
     for (uint32_t i = 0; i < ql->episodes_n; ++i) {
         // reset
         // one episode
         for (uint32_t j = 0; j < ql->max_episode_steps; ++j) {
-            // choice the action
-            double old_qv;
-            uint32_t action;
-            
+            uint32_t action = my_agent_get_action(ql->agent, current_state, explo_proba);
+            double old_qv = ql->agent->q_table.arr[current_state][action];
             int next_state = ql->env->action_table.arr[current_state][action];
             if (next_state == -1)
                 continue;
