@@ -75,6 +75,12 @@ int main(int argc, char* argv[]) {
     fillMatrix(&action_table, states_n, actions_n);
     MAT_PRINT(action_table);
 
+    for (uint32_t i = 0; i < episodes_n; ++i) {
+        for (uint32_t j = 0; j < max_episode_steps; ++j) {
+            
+        }
+    }
+
     MAT_FREE(q_table);
     MAT_FREE(reward_table);
     MAT_FREE(action_table);
