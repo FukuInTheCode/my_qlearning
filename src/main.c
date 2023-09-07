@@ -154,7 +154,7 @@ int main(int argc, char* argv[])
     MAT_PRINT(my_g.infos_table);
     MAT_PRINT(my_g.action_table);
 
-    // my_ql_train(&ql);
+    my_ql_train(&ql);
 
     MAT_PRINT(ql.agent->q_table);
     my_env_print_reward(&my_g);
