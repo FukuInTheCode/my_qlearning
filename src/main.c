@@ -86,7 +86,9 @@ int main(int argc, char* argv[])
     // q learning algo
     my_ql_train(&ql);
 
+
     MAT_PRINT(ql.agent->q_table);
+    my_env_print(&my_g);
 
     MAT_FREE(ql.agent->q_table);
     MAT_FREE(ql.env->infos_table);
