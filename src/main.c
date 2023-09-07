@@ -1,8 +1,8 @@
 #include "../includes/my.h"
 
 static void fillMatrix(my_matrix_t *action_table, uint32_t states_n, uint32_t actions_n) {
-    int grid_columns = 4;
-    int grid_rows = 4;
+    int grid_columns = 6;
+    int grid_rows = 6;
     for (uint32_t state = 0; state < states_n; state++) {
         for (uint32_t action = 0; action < actions_n; action++) {
             int resulting_state;
@@ -76,7 +76,7 @@ int main(int argc, char* argv[])
 
     my_ql_t ql = {
         .episodes_n = 10*1000,
-        .max_episode_steps = 11,
+        .max_episode_steps = 1000,
         .alpha = 1e-1,
         .decay_rate = 1e-3,
         .gamma = 1e-2 * 99,
