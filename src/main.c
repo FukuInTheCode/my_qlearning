@@ -57,32 +57,9 @@ int main(int argc, char* argv[])
 
     my_g.starting_state = 0;
 
-    my_env_create(&my_g);
-
-    my_matrix_set(&my_g.reward_table, 6, 0, -1);
-    my_matrix_set(&my_g.reward_table, 7, 0, -1);
-    my_matrix_set(&my_g.reward_table, 4, 0, -10);
-    my_matrix_set(&my_g.reward_table, 12, 0, -10);
-    my_matrix_set(&my_g.reward_table, 10, 0, -1);
-    my_matrix_set(&my_g.reward_table, 8, 0, 1);
-    my_matrix_set(&my_g.reward_table, 11, 0, 10);
-
-    fillMatrix(&my_g.action_table, my_g.states_n, my_g.actions_n);
-    MAT_PRINT(my_g.reward_table);
-    MAT_PRINT(my_g.action_table);
-
-    // agent
-
     AGENT_DECLA(gilbert);
 
-    my_agent_create(&gilbert, my_g.states_n, my_g.actions_n);
-
-
-    // q learning vars
-
     my_ql_t ql = {
-        .env = &my_g,
-        .agent = &gilbert,
         .episodes_n = 10*1000,
         .max_episode_steps = 11,
         .alpha = 1e-1,
@@ -92,6 +69,18 @@ int main(int argc, char* argv[])
         .min_explo_proba = 1e-1
     };
 
+    my_ql_create(&ql, &my_g, &gilbert);
+
+    my_matrix_set(&my_g.reward_table, 11, 0, 10);
+    my_matrix_set(&my_g.reward_table, 6, 0, -1);
+    my_matrix_set(&my_g.reward_table, 7, 0, -1);
+    my_matrix_set(&my_g.reward_table, 4, 0, -10);
+    my_matrix_set(&my_g.reward_table, 12, 0, -10);
+    my_matrix_set(&my_g.reward_table, 10, 0, -1);
+    my_matrix_set(&my_g.reward_table, 8, 0, 1);
+    fillMatrix(&my_g.action_table, my_g.states_n, my_g.actions_n);
+    MAT_PRINT(my_g.reward_table);
+    MAT_PRINT(my_g.action_table);
     // q learning algo
     uint32_t current_state = ql.env->starting_state;
     double exploit_proba = ql.start_explo_proba;
