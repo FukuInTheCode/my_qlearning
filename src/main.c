@@ -48,29 +48,12 @@ static void fillMatrix(my_matrix_t *action_table, uint32_t states_n, uint32_t ac
 int main(int argc, char* argv[]) {
     srand(69);
 
+    // env
+
     uint32_t states_n = 16;
     uint32_t actions_n = 4;
 
-    uint32_t episodes_n = 10000;
-    uint32_t max_episode_steps = 11;
-
     uint32_t starting_state = 0;
-
-    double alpha = 1e-1;
-
-    double gamma = 0.99;
-
-    double decay_rate = 0.001;
-
-    double start_exploit_proba = 1.;
-
-    double min_proba_exploit = 1e-1;
-
-    MAT_DECLA(q_table);
-
-    my_matrix_create(states_n, actions_n, 1, &q_table);
-
-    MAT_PRINT(q_table);
 
     MAT_DECLA(reward_table);
 
@@ -83,17 +66,45 @@ int main(int argc, char* argv[]) {
     my_matrix_set(&reward_table, 10, 0, -1);
     my_matrix_set(&reward_table, 8, 0, 1);
     my_matrix_set(&reward_table, 11, 0, 10);
-
-    MAT_PRINT(reward_table);
     MAT_DECLA(action_table);
 
     my_matrix_create(states_n, actions_n, 1, &action_table);
     fillMatrix(&action_table, states_n, actions_n);
+    MAT_PRINT(reward_table);
     MAT_PRINT(action_table);
+
+    // q learning vars
+
+    uint32_t episodes_n = 10000;
+    uint32_t max_episode_steps = 11;
+
+    double alpha = 1e-1;
+
+    double gamma = 0.99;
+
+    double decay_rate = 0.001;
+
+    double start_exploit_proba = 1.;
+
+    double min_proba_exploit = 1e-1;
+
+    // agent
+
+    MAT_DECLA(q_table);
+
+    my_matrix_create(states_n, actions_n, 1, &q_table);
+
+    MAT_PRINT(q_table);
+
+    uint32_t current_state = starting_state;
+
+    // q learning algo
     double exploit_proba = start_exploit_proba;
     for (uint32_t i = 0; i < episodes_n; ++i) {
-        uint32_t current_state = starting_state;
+        // reset
+        // one episode
         for (uint32_t j = 0; j < max_episode_steps; ++j) {
+            // choice the action
             double old_qv;
             uint32_t action;
             if (my_randfloat(0, 1) < exploit_proba) {
@@ -106,15 +117,18 @@ int main(int argc, char* argv[]) {
             int next_state = action_table.arr[current_state][action];
             if (next_state == -1)
                 continue;
+            // change the q_table based on the reward
             double reward = reward_table.arr[next_state][0];
             double max_next_qv = my_matrix_maxrow(&q_table, next_state);
             double new_qv = (1 - alpha) * old_qv + alpha *(reward + gamma * max_next_qv);
             q_table.arr[current_state][action] = new_qv;
+            // set the agent
             if (reward != 0 && reward != 1)
                 break;
             current_state = next_state;
         }
         exploit_proba = my_max_between(start_exploit_proba * exp(-1 * decay_rate * i), min_proba_exploit);
+        current_state = starting_state;
     }
 
     MAT_PRINT(q_table);
