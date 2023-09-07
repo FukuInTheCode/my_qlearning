@@ -54,9 +54,11 @@ int main(int argc, char* argv[]) {
     uint32_t episodes_n = 1000;
     uint32_t max_episode_steps = 10;
 
-    uint32_t current_state = 0;
+    uint32_t starting_state = 0;
 
-    double alpha = 0.1;
+    double alpha = 1e-1;
+
+    double gamme = 0.99;
 
     MAT_DECLA(q_table);
 
@@ -80,10 +82,21 @@ int main(int argc, char* argv[]) {
     MAT_PRINT(action_table);
 
     for (uint32_t i = 0; i < episodes_n; ++i) {
+        uint32_t current_state = starting_state;
         for (uint32_t j = 0; j < max_episode_steps; ++j) {
-            uint32_t max_qv = my_matrix_maxrow(q_table, current_state);
-            uint32_t max_index = my_matrix_find_col_index(q_table, current_state, max_qv);
-
+            double max_qv = my_matrix_maxrow(q_table, current_state);
+            uint32_t action = my_matrix_find_col_index(q_table, current_state, max_qv);
+            uint32_t next_state = action_table.arr[current_state][action];
+            if (next_state == -1)
+                continue;
+            double reward = reward_table.arr[next_state][0];
+            double max_next_qv = my_matrix_maxrow(q_table, next_state);
+            double old_qv = max_qv;
+            double new_qv = (1 - alpha) * old_qv * alpha *(reward + gamma * max_next_qv);
+            q_table.arr[current_state][action] = new_qv;
+            if (reward == -1)
+                break;
+            current_state = next_state;
         }
     }
 
