@@ -75,7 +75,6 @@ int main(int argc, char* argv[])
 
     AGENT_DECLA(gilbert);
 
-    my_matrix_create(my_g.states_n, my_g.actions_n, 1, &gilbert.q_table);
 
     // q learning vars
 
