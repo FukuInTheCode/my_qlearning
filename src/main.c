@@ -72,7 +72,7 @@ int main(int argc, char* argv[])
 
     my_ql_create(&ql, &my_g, &gilbert);
 
-    my_matrix_setcol(&(my_g.infos_table), 2, 48);
+    my_matrix_setcol(&(my_g.infos_table), 2, 111);
 
     my_matrix_set(&my_g.infos_table, 11, 0, 10);
     my_matrix_set(&my_g.infos_table, 6, 0, -1);
@@ -87,7 +87,6 @@ int main(int argc, char* argv[])
 
     // q learning algo
     my_ql_train(&ql);
-
 
     MAT_PRINT(ql.agent->q_table);
     my_env_print_reward(&my_g);
