@@ -57,6 +57,8 @@ int main(int argc, char* argv[])
 
     my_g.starting_state = 0;
 
+    my_env_create(&my_g);
+
     my_matrix_set(&my_g.reward_table, 6, 0, -1);
     my_matrix_set(&my_g.reward_table, 7, 0, -1);
     my_matrix_set(&my_g.reward_table, 4, 0, -10);
