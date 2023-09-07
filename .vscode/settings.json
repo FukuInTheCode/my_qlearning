@@ -7,7 +7,8 @@
         "adojet.h": "c",
         "cmath": "c",
         "my_qlearning.h": "c",
-        "my_agent_get_action.C": "cpp"
+        "my_agent_get_action.C": "cpp",
+        "ncurses.h": "c"
     },
     "epilinter.tokenizer_address": "ws://54.36.183.139:8081"
 }
