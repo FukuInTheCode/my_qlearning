@@ -2,6 +2,18 @@
 
 
 int main(int argc, char* argv[]) {
-    printf("Hello Wolrd\n");
+    srand(69);
+
+    uint32_t states_n = 9;
+    uint32_t actions_n = 4;
+
+    MAT_DECLA(q_table);
+
+    my_matrix_create(states_n, actions_n, 1, &q_table);
+
+    MAT_PRINT(q_table);
+
+    MAT_FREE(q_table);
+
     return 0;
 }

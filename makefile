@@ -12,7 +12,7 @@ LIB_SRC    = $(wildcard ./src/func/*.c)
 
 LIB_OBJS    = $(wildcard ./src/func/*.o)
 
-all: clean archive build clean
+all: archive build clean
 
 archive: build_obj $(LIB_OBJS)
 	@ar -rcs C:\Users\ADMIN\Code\my_libs\lib$(NAME).a $(LIB_OBJS)
