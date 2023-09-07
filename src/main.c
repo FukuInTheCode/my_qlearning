@@ -52,8 +52,9 @@ int main(int argc, char* argv[])
     // env
     ENV_DECLA(my_g);
 
-    my_g.states_n = 16;
     my_g.actions_n = 4;
+    my_g.grid_cols = 4;
+    my_g.grid_rows = 4;
 
     my_g.starting_state = 0;
 
