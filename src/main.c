@@ -90,7 +90,7 @@ int main(int argc, char* argv[])
 
     MAT_PRINT(ql.agent->q_table);
     my_env_print_reward(&my_g);
-    my_env_print_char(&my_g);
+    my_env_print_id(&my_g);
 
     MAT_FREE(ql.agent->q_table);
     MAT_FREE(ql.env->infos_table);
