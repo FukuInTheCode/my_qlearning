@@ -1,10 +1,10 @@
-NAME       = TBD
+NAME       = my_qlearning
 
 CFLAGS     = -W -Wall -Wextra
 
 LIB        = -l$(NAME)
 
-DEPENDENCIES = TBD
+DEPENDENCIES = -lmy_matrix -lmy_math
 
 SRC        = $(wildcard ./src/*.c)
 
