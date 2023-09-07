@@ -8,7 +8,7 @@
 
 #define ENV_DECLA(nvar) my_env_t nvar = \
     {.states_n = 0, .actions_n = 0, .infos_table =\
-                {.m = 0, .n = 0, .name = "Rs of "#nvar}, .action_table =\
+                {.m = 0, .n = 0, .name = "Infos of "#nvar}, .action_table =\
                     {.m = 0, .n = 0, .name = "As of "#nvar}, .name = #nvar}
 
 typedef struct {
