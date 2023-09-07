@@ -75,7 +75,7 @@ int main(int argc, char* argv[])
     my_matrix_set(&my_g.infos_table, 11, 0, 10);
     my_matrix_set(&my_g.infos_table, 6, 0, -1);
     my_matrix_set(&my_g.infos_table, 7, 0, -1);
-    my_matrix_set(&my_g.infos_table, 4, 0, -10);
+    my_matrix_set(&my_g.infos_table, 4, 0, 10);
     my_matrix_set(&my_g.infos_table, 12, 0, -10);
     my_matrix_set(&my_g.infos_table, 10, 0, -1);
     my_matrix_set(&my_g.infos_table, 8, 0, 1);
