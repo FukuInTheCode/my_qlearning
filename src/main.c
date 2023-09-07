@@ -1,8 +1,8 @@
 #include "../includes/my.h"
 
 static void fillMatrix(my_matrix_t *action_table, uint32_t states_n, uint32_t actions_n) {
-    int grid_columns = 6;
-    int grid_rows = 6;
+    int grid_columns = 10;
+    int grid_rows = 10;
     for (uint32_t state = 0; state < states_n; state++) {
         for (uint32_t action = 0; action < actions_n; action++) {
             int resulting_state;
@@ -60,17 +60,23 @@ int main(int argc, char* argv[])
 
     // my_g.starting_state = 0;
 
-    my_g.actions_n = 4;
-    my_g.grid_cols = 6;
-    my_g.grid_rows = 6;
+    // my_g.actions_n = 4;
+    // my_g.grid_cols = 6;
+    // my_g.grid_rows = 6;
 
-    my_g.starting_state = 10;
+    // my_g.starting_state = 10;
 
-    // my_g.actions_n = 8;
+    // my_g.actions_n = 4;
     // my_g.grid_cols = 10;
     // my_g.grid_rows = 10;
-
     // my_g.starting_state = 45;
+
+    my_g.actions_n = 4;
+    my_g.grid_cols = 10;
+    my_g.grid_rows = 10;
+
+    my_g.starting_state = 2;
+
 
     AGENT_DECLA(gilbert);
 
@@ -78,7 +84,7 @@ int main(int argc, char* argv[])
         .episodes_n = 10*1000,
         .max_episode_steps = 1000,
         .alpha = 1e-1,
-        .decay_rate = 1e-3,
+        .decay_rate = 1e-5,
         .gamma = 1e-2 * 99,
         .start_explo_proba = 1.,
         .min_explo_proba = 1e-1
@@ -100,22 +106,22 @@ int main(int argc, char* argv[])
     // my_matrix_set(&my_g.infos_table, 10, 0, -1);
     // my_matrix_set(&my_g.infos_table, 8, 0, 1);
 
-    my_matrix_set(&my_g.infos_table, 1, 0, -5);
-    my_matrix_set(&my_g.infos_table, 3, 0, 2);
-    my_matrix_set(&my_g.infos_table, 7, 0, 8);
-    my_matrix_set(&my_g.infos_table, 9, 0, 5);
-    my_matrix_set(&my_g.infos_table, 11, 0, 1);
-    my_matrix_set(&my_g.infos_table, 12, 0, -10);
-    my_matrix_set(&my_g.infos_table, 16, 0, 3);
-    my_matrix_set(&my_g.infos_table, 19, 0, -2);
-    my_matrix_set(&my_g.infos_table, 23, 0, 6);
-    my_matrix_set(&my_g.infos_table, 24, 0, -4);
-    my_matrix_set(&my_g.infos_table, 29, 0, 7);
-    my_matrix_set(&my_g.infos_table, 31, 0, -6);
-    my_matrix_set(&my_g.infos_table, 34, 0, 4);
-    my_matrix_set(&my_g.infos_table, 35, 0, -3);
-    my_matrix_set(&my_g.infos_table, 40, 0, 9);
-    my_matrix_set(&my_g.infos_table, 41, 0, -7);
+    // my_matrix_set(&my_g.infos_table, 1, 0, -5);
+    // my_matrix_set(&my_g.infos_table, 3, 0, 2);
+    // my_matrix_set(&my_g.infos_table, 7, 0, 8);
+    // my_matrix_set(&my_g.infos_table, 9, 0, 5);
+    // my_matrix_set(&my_g.infos_table, 11, 0, 1);
+    // my_matrix_set(&my_g.infos_table, 12, 0, -10);
+    // my_matrix_set(&my_g.infos_table, 16, 0, 3);
+    // my_matrix_set(&my_g.infos_table, 19, 0, -2);
+    // my_matrix_set(&my_g.infos_table, 23, 0, 6);
+    // my_matrix_set(&my_g.infos_table, 24, 0, -4);
+    // my_matrix_set(&my_g.infos_table, 29, 0, 7);
+    // my_matrix_set(&my_g.infos_table, 31, 0, -6);
+    // my_matrix_set(&my_g.infos_table, 34, 0, 4);
+    // my_matrix_set(&my_g.infos_table, 35, 0, -3);
+    // my_matrix_set(&my_g.infos_table, 40, 0, 9);
+    // my_matrix_set(&my_g.infos_table, 41, 0, -7);
 
     // my_matrix_set(&my_g.infos_table, 1, 0, -5);
     // my_matrix_set(&my_g.infos_table, 4, 0, 2);
@@ -150,6 +156,33 @@ int main(int argc, char* argv[])
     // my_matrix_set(&my_g.infos_table, 91, 0, -7);
     // my_matrix_set(&my_g.infos_table, 94, 0, 6);
 
+    char mazeLayout[10][10] = {
+        {'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W'},
+        {'W', ' ', ' ', 'W', 'W', 'W', ' ', 'W', ' ', 'W'},
+        {'W', 'W', ' ', 'W', 'W', 'W', ' ', 'W', ' ', 'W'},
+        {'W', 'W', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'W'},
+        {'W', 'W', 'W', 'W', ' ', 'W', 'W', 'W', ' ', 'W'},
+        {'W', ' ', ' ', ' ', ' ', 'W', ' ', ' ', ' ', 'W'},
+        {'W', 'W', ' ', 'W', ' ', ' ', ' ', 'W', ' ', 'W'},
+        {'W', 'W', ' ', 'W', 'W', 'W', 'W', 'W', ' ', 'W'},
+        {'W', ' ', ' ', ' ', ' ', ' ', ' ', 'W', 'W', 'W'},
+        {'W', 'W', 'W', 'W', 'W', 'W', ' ', ' ', ' ', 'G'}
+    };
+
+    // Initialize the maze using the mazeLayout
+    for (int i = 0; i < my_g.grid_rows; i++) {
+        for (int j = 0; j < my_g.grid_cols; j++) {
+            char cell = mazeLayout[i][j];
+            int state = i * my_g.grid_cols + j;
+            if (cell == 'W') {
+                my_matrix_set(&my_g.infos_table, state, 0, -10); // Set walls to have a negative reward
+            } else if (cell == 'G') {
+                my_matrix_set(&my_g.infos_table, state, 0, 10);  // Set the goal to have a positive reward
+            }
+        }
+    }
+    my_matrix_set(&my_g.infos_table, 99, 1, 1);
+
     fillMatrix(&my_g.action_table, my_g.states_n, my_g.actions_n);
     MAT_PRINT(my_g.infos_table);
     MAT_PRINT(my_g.action_table);
@@ -159,6 +192,8 @@ int main(int argc, char* argv[])
     MAT_PRINT(ql.agent->q_table);
     my_env_print_reward(&my_g);
     my_env_print_id(&my_g);
+
+    my_agent_get_path(&gilbert, ql.max_episode_steps, my_g.starting_state, &(my_g.action_table));
 
     MAT_FREE(ql.agent->q_table);
     MAT_FREE(ql.env->infos_table);
