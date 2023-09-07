@@ -3,9 +3,11 @@
 
 #include "my_matrix.h"
 
-typedef struct {
-    my_matrix_t q_table;
+#define AGENT_DECLA(nvar) my_agent_t nvar = {.q_table = {.m = 0, .n = 0}, .name = #nvar}
 
+typedef struct {
+    char *name;
+    my_matrix_t q_table;
 } my_agent_t;
 
 typedef struct {

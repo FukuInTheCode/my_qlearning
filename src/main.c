@@ -48,6 +48,10 @@ static void fillMatrix(my_matrix_t *action_table, uint32_t states_n, uint32_t ac
 int main(int argc, char* argv[]) {
     srand(69);
 
+    AGENT_DECLA(gilbert);
+
+    MAT_PRINT(gilbert.q_table);
+
     // env
 
     uint32_t states_n = 16;
