@@ -7,7 +7,7 @@
         {.m = 0, .n = 0, .name = #nvar"'s q_table"}, .name = #nvar}
 
 #define ENV_DECLA(nvar) my_env_t nvar = \
-    {.states_n = 0, .actions_n = 0, .reward_table =\
+    {.states_n = 0, .actions_n = 0, .infos_table =\
                 {.m = 0, .n = 0, .name = "Rs of "#nvar}, .action_table =\
                     {.m = 0, .n = 0, .name = "As of "#nvar}, .name = #nvar}
 
@@ -20,7 +20,7 @@ typedef struct {
     char *name;
     uint32_t states_n;
     uint32_t actions_n;
-    my_matrix_t reward_table;
+    my_matrix_t infos_table;
     my_matrix_t action_table;
     uint32_t starting_state;
     uint32_t grid_cols;

@@ -9,7 +9,7 @@ static void do_episode(my_ql_t *ql, double explo_proba, uint32_t current_state)
         int next_state = ql->env->action_table.arr[current_state][action];
         if (next_state == -1)
             continue;
-        double reward = ql->env->reward_table.arr[next_state][0];
+        double reward = ql->env->infos_table.arr[next_state][0];
         double max_next_qv = my_matrix_maxrow(&ql->agent->q_table, next_state);
         double new_qv = (1 - ql->alpha) * old_qv + ql->alpha *(reward +\
                                                     ql->gamma * max_next_qv);

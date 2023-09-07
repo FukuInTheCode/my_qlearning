@@ -72,15 +72,15 @@ int main(int argc, char* argv[])
 
     my_ql_create(&ql, &my_g, &gilbert);
 
-    my_matrix_set(&my_g.reward_table, 11, 0, 10);
-    my_matrix_set(&my_g.reward_table, 6, 0, -1);
-    my_matrix_set(&my_g.reward_table, 7, 0, -1);
-    my_matrix_set(&my_g.reward_table, 4, 0, -10);
-    my_matrix_set(&my_g.reward_table, 12, 0, -10);
-    my_matrix_set(&my_g.reward_table, 10, 0, -1);
-    my_matrix_set(&my_g.reward_table, 8, 0, 1);
+    my_matrix_set(&my_g.infos_table, 11, 0, 10);
+    my_matrix_set(&my_g.infos_table, 6, 0, -1);
+    my_matrix_set(&my_g.infos_table, 7, 0, -1);
+    my_matrix_set(&my_g.infos_table, 4, 0, -10);
+    my_matrix_set(&my_g.infos_table, 12, 0, -10);
+    my_matrix_set(&my_g.infos_table, 10, 0, -1);
+    my_matrix_set(&my_g.infos_table, 8, 0, 1);
     fillMatrix(&my_g.action_table, my_g.states_n, my_g.actions_n);
-    MAT_PRINT(my_g.reward_table);
+    MAT_PRINT(my_g.infos_table);
     MAT_PRINT(my_g.action_table);
 
     // q learning algo
@@ -89,7 +89,7 @@ int main(int argc, char* argv[])
     MAT_PRINT(ql.agent->q_table);
 
     MAT_FREE(ql.agent->q_table);
-    MAT_FREE(ql.env->reward_table);
+    MAT_FREE(ql.env->infos_table);
     MAT_FREE(ql.env->action_table);
 
     return 0;
