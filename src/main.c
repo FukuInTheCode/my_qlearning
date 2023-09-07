@@ -193,7 +193,7 @@ int main(int argc, char* argv[])
     my_env_print_reward(&my_g);
     my_env_print_id(&my_g);
 
-    my_agent_get_path(&gilbert, ql.max_episode_steps, my_g.starting_state, &(my_g.action_table));
+    my_agent_get_path(&gilbert, &my_g, ql.max_episode_steps);
 
     MAT_FREE(ql.agent->q_table);
     MAT_FREE(ql.env->infos_table);
