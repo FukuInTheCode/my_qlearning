@@ -45,8 +45,9 @@ static void fillMatrix(my_matrix_t *action_table, uint32_t states_n, uint32_t ac
 
 
 
-int main(int argc, char* argv[]) {
-    srand(69);
+int main(int argc, char* argv[])
+{
+    // srand(69);
 
     // env
 
@@ -72,6 +73,14 @@ int main(int argc, char* argv[]) {
     MAT_PRINT(my_g.reward_table);
     MAT_PRINT(my_g.action_table);
 
+    // agent
+
+    AGENT_DECLA(gilbert);
+
+    my_matrix_create(my_g.states_n, my_g.actions_n, 1, &gilbert.q_table);
+
+    MAT_PRINT(gilbert.q_table);
+
     // q learning vars
 
     uint32_t episodes_n = 10000;
@@ -87,17 +96,8 @@ int main(int argc, char* argv[]) {
 
     double min_proba_exploit = 1e-1;
 
-    // agent
-
-    MAT_DECLA(q_table);
-
-    my_matrix_create(my_g.states_n, my_g.actions_n, 1, &q_table);
-
-    MAT_PRINT(q_table);
-
-    uint32_t current_state = my_g.starting_state;
-
     // q learning algo
+    uint32_t current_state = my_g.starting_state;
     double exploit_proba = start_exploit_proba;
     for (uint32_t i = 0; i < episodes_n; ++i) {
         // reset
@@ -108,19 +108,19 @@ int main(int argc, char* argv[]) {
             uint32_t action;
             if (my_randfloat(0, 1) < exploit_proba) {
                 action = my_randint(0, 3);
-                old_qv = q_table.arr[current_state][action];
+                old_qv = gilbert.q_table.arr[current_state][action];
             } else {
-                old_qv = my_matrix_maxrow(&q_table, current_state);
-                action = my_matrix_find_col_index(&q_table, current_state, old_qv);
+                old_qv = my_matrix_maxrow(&gilbert.q_table, current_state);
+                action = my_matrix_find_col_index(&gilbert.q_table, current_state, old_qv);
             }
             int next_state = my_g.action_table.arr[current_state][action];
             if (next_state == -1)
                 continue;
-            // change the q_table based on the reward
+            // change the gilbert.q_table based on the reward
             double reward = my_g.reward_table.arr[next_state][0];
-            double max_next_qv = my_matrix_maxrow(&q_table, next_state);
+            double max_next_qv = my_matrix_maxrow(&gilbert.q_table, next_state);
             double new_qv = (1 - alpha) * old_qv + alpha *(reward + gamma * max_next_qv);
-            q_table.arr[current_state][action] = new_qv;
+            gilbert.q_table.arr[current_state][action] = new_qv;
             // set the agent
             if (reward != 0 && reward != 1)
                 break;
@@ -130,9 +130,9 @@ int main(int argc, char* argv[]) {
         current_state = my_g.starting_state;
     }
 
-    MAT_PRINT(q_table);
+    MAT_PRINT(gilbert.q_table);
 
-    MAT_FREE(q_table);
+    MAT_FREE(gilbert.q_table);
     MAT_FREE(my_g.reward_table);
     MAT_FREE(my_g.action_table);
 
