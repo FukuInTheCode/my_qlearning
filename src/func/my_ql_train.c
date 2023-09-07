@@ -11,13 +11,7 @@ void my_ql_train(my_ql_t *ql)
             // choice the action
             double old_qv;
             uint32_t action;
-            if (my_randfloat(0, 1) < exploit_proba) {
-                action = my_randint(0, 3);
-                old_qv = ql->agent->q_table.arr[current_state][action];
-            } else {
-                old_qv = my_matrix_maxrow(&ql->agent->q_table, current_state);
-                action = my_matrix_find_col_index(&ql->agent->q_table, current_state, old_qv);
-            }
+            
             int next_state = ql->env->action_table.arr[current_state][action];
             if (next_state == -1)
                 continue;
